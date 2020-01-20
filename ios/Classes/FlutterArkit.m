@@ -160,11 +160,6 @@
             }
             _configuration = worldTrackingConfiguration;
         }
-    } else if (configurationType == 1) {
-        if (ARFaceTrackingConfiguration.isSupported) {
-            ARFaceTrackingConfiguration* faceTrackingConfiguration = [ARFaceTrackingConfiguration new];
-            _configuration = faceTrackingConfiguration;
-        }
     } else if (configurationType == 2) {
         if (ARImageTrackingConfiguration.isSupported) {
             ARImageTrackingConfiguration* imageTrackingConfiguration = [ARImageTrackingConfiguration new];
@@ -345,19 +340,10 @@
     NSString* name = call.arguments[@"name"];
     SCNNode* node = [self.sceneView.scene.rootNode childNodeWithName:name recursively:YES];
     ARSCNFaceGeometry* geometry = (ARSCNFaceGeometry*)node.geometry;
-    ARFaceAnchor* faceAnchor = [self findAnchor:call.arguments[@"fromAnchorId"] inArray:self.sceneView.session.currentFrame.anchors];
-    
+
     [geometry updateFromFaceGeometry:faceAnchor.geometry];
     
     result(nil);
-}
-
--(ARFaceAnchor*)findAnchor:(NSString*)searchUUID inArray:(NSArray<ARAnchor *>*)array{
-    for (ARAnchor* obj in array){
-        if([[obj.identifier UUIDString] isEqualToString:searchUUID])
-            return (ARFaceAnchor*)obj;
-    }
-    return NULL;
 }
 
 - (void) onGetLightEstimate:(FlutterMethodCall*)call andResult:(FlutterResult)result{
