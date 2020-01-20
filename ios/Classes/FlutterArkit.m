@@ -341,7 +341,7 @@
     SCNNode* node = [self.sceneView.scene.rootNode childNodeWithName:name recursively:YES];
     ARSCNFaceGeometry* geometry = (ARSCNFaceGeometry*)node.geometry;
 
-    [geometry updateFromFaceGeometry:faceAnchor.geometry];
+    //[geometry updateFromFaceGeometry:faceAnchor.geometry];
     
     result(nil);
 }
